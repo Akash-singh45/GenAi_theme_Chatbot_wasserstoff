@@ -26,6 +26,11 @@ def save_to_faiss(text_data):
     texts = [item["text"] for item in text_data]
     embeddings = embed_text(texts)
 
+    print("💾 Embedding and saving to FAISS...")
+    print("🧾 Sample text:", texts[:1])
+    print("📦 Embeddings shape:", embeddings.shape)
+
+
     index = faiss.IndexFlatL2(embeddings.shape[1])  # L2 distance index
     index.add(np.array(embeddings))
 
@@ -51,3 +56,5 @@ def load_faiss_index():
         metadata = pickle.load(f)
 
     return index, metadata
+
+

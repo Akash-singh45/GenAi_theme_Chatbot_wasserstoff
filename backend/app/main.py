@@ -1,12 +1,11 @@
 # backend/app/main.py
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api import upload
+from app.api import upload, query
 
 app = FastAPI(title="GenAI Theme Chatbot Backend")
 
-# Allow CORS for frontend (Streamlit or React)
+# CORS (for Streamlit or browser later)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -15,5 +14,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Include upload route
+# Test root endpoint
+@app.get("/")
+def root():
+    return {"message": "Backend is working fine ✅"}
+
+# Upload route
 app.include_router(upload.router, prefix="/api")
+
+app.include_router(upload.router, prefix="/api")
+app.include_router(query.router, prefix="/api")
